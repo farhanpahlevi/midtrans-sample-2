@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements TransactionFinishedCallback {
     private Button buttonUiKit, buttonDirectCreditCard, buttonDirectBcaVa, buttonDirectMandiriVa,
             buttonDirectBniVa, buttonDirectAtmBersamaVa, buttonDirectPermataVa;
-    private TextView editText, editText2;
+    private TextView editText, editText2, snapTokenEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements TransactionFinish
 
         editText2.setText(BuildConfig.MERCHANT_BASE_URL);
         editText.setText(BuildConfig.MERCHANT_CLIENT_KEY);
+
+        snapTokenEditText = findViewById(R.id.snap_token_edittext);
     }
 
     private void initSdk() {
@@ -159,9 +161,14 @@ public class MainActivity extends AppCompatActivity implements TransactionFinish
         buttonUiKit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String snapToken =  snapTokenEditText.getText().toString();
                 MidtransSDK midtransSDK = MidtransSDK.getInstance();
                 midtransSDK.setTransactionRequest(initTransaction());
-                midtransSDK.startPaymentUiFlow(MainActivity.this);
+                if(snapToken.equals("")){
+                    midtransSDK.startPaymentUiFlow(MainActivity.this);
+                } else {
+                    midtransSDK.startPaymentUiFlow(MainActivity.this,snapToken);
+                }
             }
         });
 
