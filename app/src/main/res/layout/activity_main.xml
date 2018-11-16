@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:enabled="false"
-        android:hint="Client Key" />
+        android:hint="Client Key"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/editText"
@@ -31,7 +32,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:enabled="false"
-        android:hint="Token" />
+        android:hint="Token"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/button_uikit"
